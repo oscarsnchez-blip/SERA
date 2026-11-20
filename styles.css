@@ -139,3 +139,65 @@ html.modal-active,html.modal-active body{overflow:hidden!important;overscroll-be
 .compare-notes p{font-size:10px;padding:9px}}
 @media(max-width:560px){.sera-plan{padding:15px!important;border-radius:15px!important}.sp-top{margin-bottom:10px}.sera-plan h3{font-size:22px!important}.sp-lead{font-size:12px;margin:6px 0 11px}.sp-key{padding:10px 11px}.sp-key strong{font-size:13px}.sp-list{margin:10px 0 12px!important}.sp-list li{font-size:11px;padding:5px 0}.sera-plan .btn{padding:10px;font-size:12px}}
 .plans-more{display:flex;justify-content:center;margin-top:22px}.plans-more .btn{display:inline-flex;gap:8px;align-items:center}.plans-more .btn span{transition:transform .2s}.plans-more .btn:hover span{transform:translateX(4px)}@media(max-width:560px){.plans-more .btn{width:100%;justify-content:center;font-size:12px;padding:11px}}
+/* SERA v0.2.10 | configurador SERA A tu medida */
+.plan-dialog{width:min(760px,100%)!important;padding-bottom:0!important}
+.plan-form{gap:16px!important}
+.cfg-block{margin:0;padding:18px;border:1px solid var(--l);border-radius:18px;background:#fff;min-width:0}
+.cfg-block legend{display:flex;align-items:center;gap:9px;padding:0 8px;margin-left:-6px;font-size:14px;font-weight:900;color:var(--n)}
+.cfg-block legend b{display:grid;place-items:center;width:24px;height:24px;border-radius:8px;background:linear-gradient(145deg,var(--b),#164fdc);color:#fff;font-size:11px}
+.cfg-seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.modern-form .cfg-opt{display:block;position:relative;cursor:pointer}
+.modern-form .cfg-opt input{position:absolute;opacity:0;width:1px;height:1px;padding:0;border:0}
+.cfg-opt>span{display:grid!important;gap:2px;padding:13px 10px;border:1.5px solid #d8e1ec;border-radius:13px;background:#f9fbfd;text-align:center;transition:border-color .2s,background .2s,box-shadow .2s,transform .2s}
+.cfg-opt>span b{font-size:15px;color:var(--n)}.cfg-opt>span small{font-size:10px;font-weight:800;color:var(--m);text-transform:uppercase;letter-spacing:.06em}
+.cfg-opt:hover>span{border-color:#b8cced;transform:translateY(-2px)}
+.cfg-opt input:checked+span{border-color:var(--b);background:linear-gradient(145deg,#f1f6ff,#e8fbf8);box-shadow:0 10px 24px rgba(37,99,255,.16)}
+.cfg-opt input:checked+span b{color:var(--b)}
+.cfg-opt input:focus-visible+span{outline:3px solid rgba(32,211,194,.45);outline-offset:2px}
+.cfg-rule{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:var(--bg);color:#475467;font-size:12px;line-height:1.45;border-left:3px solid var(--c);transition:background .2s,color .2s}
+.cfg-rule.active{background:#fff6dc;color:#7a5a00;border-left-color:#f0b429}
+.cfg-group{margin:14px 0 4px;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}
+.cfg-group:first-of-type{margin-top:0}
+.modern-form .cfg-switch{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;padding:10px 4px;border-bottom:1px solid #edf1f6;cursor:pointer;position:relative}
+.modern-form .cfg-switch:last-child{border-bottom:0}
+.cfg-txt{display:grid!important;gap:1px;font-size:inherit!important}
+.cfg-txt b{font-size:13px;font-weight:750;color:var(--n)}
+.cfg-txt small{font-size:11px;font-weight:700;color:var(--m)}
+.modern-form .cfg-switch input{position:absolute;opacity:0;width:1px;height:1px;padding:0;border:0;right:30px}
+.cfg-track{position:relative;width:44px;height:26px;border-radius:999px;background:#d5dde8;transition:background .22s ease}
+.cfg-track:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(7,26,43,.25);transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.cfg-switch input:checked~.cfg-track{background:linear-gradient(90deg,var(--b),var(--c))}
+.cfg-switch input:checked~.cfg-track:after{transform:translateX(18px)}
+.cfg-switch input:focus-visible~.cfg-track{outline:3px solid rgba(32,211,194,.45);outline-offset:2px}
+.cfg-switch:hover .cfg-txt b{color:var(--b)}
+.cfg-switch input:checked~.cfg-txt small,.cfg-switch:has(input:checked) .cfg-txt small{color:#0c8a5f}
+.modern-form .cfg-switch.is-locked{cursor:default}
+.cfg-switch.is-locked .cfg-track{opacity:.65}
+.cfg-switch.is-locked:hover .cfg-txt b{color:var(--n)}
+.cfg-switch.is-forced .cfg-txt small{display:inline-block;width:max-content;padding:2px 7px;border-radius:6px;background:#fff6dc;color:#7a5a00!important}
+.cfg-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cfg-fields .full{grid-column:1/-1}
+.cfg-footer{position:sticky;bottom:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 -30px;padding:14px 30px 16px;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--l);box-shadow:0 -12px 30px rgba(7,26,43,.06)}
+.cfg-sum{display:grid;gap:1px;min-width:0}
+.cfg-sum b{font-size:15px;color:var(--n)}.cfg-sum small{font-size:12px;color:var(--m)}
+.cfg-premium{display:none;width:max-content;margin-top:4px;padding:3px 8px;border-radius:999px;background:#eef4ff;color:var(--b);font-size:10px;font-style:normal;font-weight:900}
+.cfg-premium.show{display:inline-block;animation:answerIn .25s ease}
+.cfg-footer .btn{flex:0 0 auto;min-height:46px;padding:0 22px}
+.plan-dialog .form-note{margin:10px 0 16px}
+.cfg-block.cfg-error{border-color:#f04438;box-shadow:0 0 0 4px rgba(240,68,56,.08)}
+.modern-form .cfg-fields input:invalid.touched{border-color:#f04438}
+@media(max-width:560px){
+.plan-dialog{padding-bottom:0!important}
+.cfg-block{padding:13px 12px;border-radius:14px}
+.cfg-block legend{font-size:13px}
+.cfg-seg{gap:6px}.cfg-opt>span{padding:10px 4px;border-radius:11px}.cfg-opt>span b{font-size:13px}.cfg-opt>span small{font-size:9px}
+.cfg-rule{font-size:11px}
+.modern-form .cfg-switch{padding:9px 2px;gap:10px}
+.cfg-txt b{font-size:12px}.cfg-txt small{font-size:10px}
+.cfg-track{width:40px;height:24px}.cfg-track:after{width:18px;height:18px}.cfg-switch input:checked~.cfg-track:after{transform:translateX(16px)}
+.cfg-fields{grid-template-columns:minmax(0,1fr);gap:10px}.cfg-fields .full{grid-column:auto}
+.cfg-footer{margin:0 -15px;padding:11px 15px 12px;gap:10px}
+.cfg-sum b{font-size:13px}.cfg-sum small{font-size:11px}
+.cfg-footer .btn{min-height:42px;padding:0 15px;font-size:12px}
+.plan-dialog .form-note{margin:8px 0 12px}}
+.cfg-footer .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}.cfg-sum b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

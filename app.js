@@ -1,4 +1,4 @@
-/* SERA v0.2.9 */
+/* SERA v0.2.10 */
 (function(){"use strict";var activeModal=null,lastFocus=null,scrollY=0;
 function all(q,r){return Array.prototype.slice.call((r||document).querySelectorAll(q));}
 function one(q,r){return (r||document).querySelector(q);}
@@ -9,13 +9,20 @@ function closeModal(){if(!activeModal)return;activeModal.classList.remove("open"
 function toast(text){var t=one("#toast");if(!t)return;t.textContent=text;t.classList.add("show");window.setTimeout(function(){t.classList.remove("show");},2600);}
 function initCompare(){all(".compare").forEach(function(box){var table=one(".compare-table",box);all(".compare-tabs button",box).forEach(function(tab){tab.addEventListener("click",function(){all(".compare-tabs button",box).forEach(function(b){b.setAttribute("aria-selected",b===tab?"true":"false");});if(table)table.setAttribute("data-show",tab.getAttribute("data-col"));});});});}
 function initHomes(){var btn=one("#searchHomes");if(!btn)return;btn.addEventListener("click",function(){var city=one("#city").value,max=Number(one("#maxPrice").value),rooms=Number(one("#rooms").value),shown=0;all(".property").forEach(function(p){var ok=(city==="all"||p.getAttribute("data-city")===city)&&Number(p.getAttribute("data-price"))<=max&&Number(p.getAttribute("data-rooms"))>=rooms;p.style.display=ok?"":"none";if(ok)shown++;});var empty=one("#homesEmpty");if(empty)empty.style.display=shown?"none":"block";toast(shown?shown+(shown===1?" vivienda encontrada.":" viviendas encontradas."):"Sin resultados con esos filtros.");});}
+function initPlanConfigurator(){var form=one("#planForm");if(!form)return;var forced=all('input[data-req="indef"]',form),rule=one("#cfgRule",form),memo={};
+function garantia(){var r=one('input[name="garantia"]:checked',form);return r?r.value:"6 meses";}
+function sync(){var indef=garantia()==="Indefinido*";forced.forEach(function(inp,i){var row=inp.closest(".cfg-switch"),small=one("small",row);if(indef){if(!inp.disabled)memo[i]=inp.checked;inp.checked=true;inp.disabled=true;row.classList.add("is-locked","is-forced");small.textContent="Obligatorio con garantía indefinida";}else{if(inp.disabled){inp.disabled=false;inp.checked=!!memo[i];}row.classList.remove("is-locked","is-forced");small.textContent=inp.checked?"Añadido":"Opcional";}});
+all(".cfg-switch input:not([data-req])",form).forEach(function(inp){if(inp.disabled)return;one("small",inp.closest(".cfg-switch")).textContent=inp.checked?"Añadido":"Opcional";});
+if(rule)rule.classList.toggle("active",indef);var r=resumen();one("#cfgSumTitle").textContent="Seguro: "+r.garantia;one("#cfgSumText").textContent=r.servicios.length+" servicios · "+r.extras+" añadidos";var allOn=all('.cfg-switch input',form).every(function(i){return i.checked;});one("#cfgPremium").classList.toggle("show",indef&&allOn);var h=one('input[name="plan_resumen"]',form);if(h)h.value="SERA A tu medida | Seguro: "+r.garantia+" | Servicios: "+r.servicios.join(", ");}
+function resumen(){var svcs=all(".cfg-switch input",form).filter(function(i){return i.checked;}).map(function(i){return i.getAttribute("data-svc");});return{garantia:garantia(),servicios:svcs,extras:Math.max(0,svcs.length-2),corto:"seguro "+garantia()+" y "+svcs.length+" servicios"};}
+form.SERAPlan=resumen;form.addEventListener("change",sync);form.addEventListener("reset",function(){memo={};window.setTimeout(sync,0);});sync();}
 function init(){all("[data-modal]").forEach(function(trigger){trigger.addEventListener("click",function(e){e.preventDefault();var d=trigger.closest("details.mobile-nav");if(d)d.removeAttribute("open");openModal(trigger.getAttribute("data-modal"),trigger);});});
 all("[data-close-modal]").forEach(function(close){close.addEventListener("click",function(e){e.preventDefault();closeModal();});});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&activeModal)closeModal();});
 document.addEventListener("click",function(e){all("details.mobile-nav[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open");});});
-all(".modern-form").forEach(function(form){form.addEventListener("submit",function(e){e.preventDefault();var kind=form.getAttribute("data-form-type");closeModal();toast(kind==="inquilino"?"Búsqueda simulada registrada.":"Solicitud simulada registrada.");form.reset();});});
+all(".modern-form").forEach(function(form){form.addEventListener("submit",function(e){e.preventDefault();if(!form.checkValidity()){all("input,textarea,select",form).forEach(function(f){f.classList.add("touched");});form.reportValidity();return;}var kind=form.getAttribute("data-form-type"),msg="Solicitud simulada registrada.";if(kind==="inquilino")msg="Búsqueda simulada registrada.";if(kind==="plan"&&form.SERAPlan)msg="Plan enviado (simulado): "+form.SERAPlan().corto+".";closeModal();toast(msg);form.reset();});});
 all(".faq button").forEach(function(btn){btn.addEventListener("click",function(){btn.parentElement.classList.toggle("open");});});
 var login=one(".login-card");if(login)login.addEventListener("submit",function(e){e.preventDefault();toast("Acceso simulado. No se envían credenciales.");});
-initCompare();initHomes();}
+initCompare();initHomes();initPlanConfigurator();}
 window.SERA={openContact:function(){openModal("contactModal",document.activeElement);},openTenant:function(){openModal("tenantModal",document.activeElement);},closeModal:closeModal};
 if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init);}else{init();}})();
