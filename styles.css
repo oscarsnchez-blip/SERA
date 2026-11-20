@@ -201,3 +201,16 @@ html.modal-active,html.modal-active body{overflow:hidden!important;overscroll-be
 .cfg-footer .btn{min-height:42px;padding:0 15px;font-size:12px}
 .plan-dialog .form-note{margin:8px 0 12px}}
 .cfg-footer .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}.cfg-sum b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* SERA v0.2.11 | comparativa móvil con tamaño estable entre pestañas */
+@media(max-width:700px){
+.compare-table,.compare-table thead,.compare-table tbody{display:block;width:100%}
+.compare-table tr{display:grid;grid-template-columns:minmax(0,1fr) 46%;align-items:stretch}
+.compare-table thead tr{background:var(--n);border-radius:0}
+.compare-table tr>*{grid-row:1;min-width:0;width:auto!important}
+.compare-table tr>th:first-child{grid-column:1;display:flex;align-items:center}
+.compare-table tr>.c1,.compare-table tr>.c2,.compare-table tr>.c3{grid-column:2;display:flex!important;flex-direction:column;align-items:center;justify-content:center;text-align:center;visibility:visible;opacity:1;transition:opacity .22s ease,visibility .22s ease}
+.compare-table[data-show="1"] .c2,.compare-table[data-show="1"] .c3,.compare-table[data-show="2"] .c1,.compare-table[data-show="2"] .c3,.compare-table[data-show="3"] .c1,.compare-table[data-show="3"] .c2{visibility:hidden;opacity:0;pointer-events:none}
+.compare-table thead th.c1,.compare-table thead th.c2,.compare-table thead th.c3{background:transparent}
+.compare-table tbody tr:hover td,.compare-table tbody tr:hover th{background:#eef5ff}
+.compare-table tbody tr:last-child>*{border-bottom:0}
+}
